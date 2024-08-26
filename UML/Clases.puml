@@ -1,0 +1,112 @@
+@startuml Clases
+
+class Parqueadero {
+  - id: int  
+  - contadorId: int
+  - nombre: String  
+  - area: String  
+  - cubiculo: Cubiculo  
+  - direccion: String  
+  - estado: String 
+}
+
+class Usuario {
+  - identificacion: String
+  - nombre: String
+  - apellido1: String 
+  - apellido2: String
+  - email: String
+  - telefono: String
+  - reserva: boolean
+  - rol: String
+  - foto: String
+}
+
+class Cubiculo {
+  - id: int
+  - contadorId: int
+  - nombre: String
+  - area: String
+  - cubiculo: Cubiculo
+  - direccion: String
+  - estado: String
+}
+
+
+class Servicio {
+  - id: int 
+  - contadorId: int 
+  - fechaEntrada: Date 
+  - fechaSalida: Date 
+  - conductor: Usuario 
+  - vehiculo: Vehiculo 
+  - guardiaEntrada: Guardia 
+  - guardiaPatio: Guardia 
+}
+
+
+class Vehiculo {
+  - marca: String
+  - placa: String
+  - color: String
+  - tipo: String 
+  - descripcion: String
+}
+
+class Horario {
+  -  id: int
+  -  contadorId: int
+  -  dia: String
+  -  horaInico: String
+  -  horaFin: String
+}
+
+class Guardia {
+  - identificacion: String
+  - tipo: String
+  - nombre: String
+  - apellido1: String
+  - apellido2: String
+  - email: String
+  - telefono: String
+  - foto: String
+}
+
+
+class Turno {
+  - id: int
+  - contadorId: int
+  - horario: Horario
+  - guardia: Guardia
+  - parqueadero: Parqueadero
+  - cargo: String
+  - observacion: String
+}
+
+class Tarifa {
+  - id: int
+  - contadorId: int 
+  - valor: double
+  - tipo: String
+  - unidad: int
+}
+
+
+' Herencia
+
+
+' Asociaciones
+Parqueadero "1" -- "*" Cubiculo
+Usuario "1" -- "1" Vehiculo
+Servicio "1" -- "1" Vehiculo
+Servicio "1" -- "1" Usuario: Conductor
+Servicio "1" -- "1" Guardia: guardiaEntrada
+Servicio "1" -- "1" Guardia: guardiaPatio
+Turno "1" -- "1" Horario
+Turno "1" -- "1" Guardia
+Turno "1" -- "1" Parqueadero
+Tarifa "*" -- "1" Parqueadero
+Parqueadero "1" -- "*" Servicio: Ofrece Muchos
+ 
+
+@enduml
